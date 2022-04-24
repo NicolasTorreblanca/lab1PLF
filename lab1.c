@@ -9,14 +9,56 @@
 // Laboratorio 1 Procesamiento de Lenguajes Fomales
 
 
-int
-main(int argc, char **argv)
+//Declaracion de funciones
+
+// Entradas:
+// Salidas:
+// Funcionamiento : 
+
+
+int esnumero(char *arreglo, int j){
+    
+    if(arreglo[j] =='0'||arreglo[j] =='1'||arreglo[j] =='2'||arreglo[j] =='3'||arreglo[j] =='4'||arreglo[j] =='5'||arreglo[j] =='6'||arreglo[j] =='7'||arreglo[j] =='8'||arreglo[j] =='9'){
+          return 1;
+        }
+       else{
+           return 0;
+       }    
+}
+
+// Entradas:
+// Salidas:
+// Funcionamiento : 
+
+
+int revisarSiguientes(char *arreglo, int j){
+       
+    if(arreglo[j] =='.'){
+          return 1;
+    }
+    else if(arreglo[j] =='^'){
+          return 2 ;
+    }
+    else{
+        return 0;
+    }  
+
+
+
+}
+
+
+// Bloque principal
+
+
+int main(int argc, char **argv)
 {
   FILE *archivoentrada;
   FILE *archivosalida;
-  int ch;
-  char charValue[5];
+  int caracterEnArchivo;
   int cantidadcaracteres = 0;
+  int revisionSalida;
+  int cantidadcaracteresSalida = 0;
   char mensaje[50];
 
 
@@ -45,6 +87,27 @@ main(int argc, char **argv)
     return 3;
   }
 
+  /*
+    do{
+    revisionSalida = fgetc(archivosalida);
+    if (revisionSalida != EOF) {
+          cantidadcaracteresSalida = cantidadcaracteresSalida +1;
+    }
+    }while (revisionSalida != EOF);
+
+    printf("caracteres salida : %d \n",cantidadcaracteresSalida);
+
+    if (cantidadcaracteresSalida != 0) {
+        printf("Se necesita un archivo vacio en el cual realizar la escritura!");
+        fclose(archivoentrada);
+        fclose(archivosalida);
+        return 1;
+    }
+
+    */
+
+  
+
   /* Reconocimiento de no terminales en la gramatica*/
   //Se revisa cada uno de los caracteres del archivo de entrada
   // Luego se revisa si aquel caracter pertenece a la gramatica
@@ -52,15 +115,16 @@ main(int argc, char **argv)
   // No terminales : 0,1,2,3,4,5,6,7,8,9, +,-,/,*,%,^,(,),.,logdec
 
   do {
-    ch = fgetc(archivoentrada);
-    if (ch != EOF) {
+    caracterEnArchivo = fgetc(archivoentrada);
+    if (caracterEnArchivo != EOF) {
           cantidadcaracteres = cantidadcaracteres +1;
     }
     
-  } while (ch != EOF);
+  } while (caracterEnArchivo != EOF);
 
   rewind(archivoentrada);
-  printf("cantidad caracters: %d \n",cantidadcaracteres);
+
+//  printf("cantidad caracters: %d \n",cantidadcaracteres);
   
   char * arreglo = (char*)malloc(cantidadcaracteres*sizeof(char)); 
 
@@ -70,100 +134,105 @@ main(int argc, char **argv)
 
 
 
-
-  
-
-        
-      /*
-      
-      if(ch =='.'){
-          char mensaje[50] = ".    PuntoDecimal\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='0'){
-          char mensaje[50] = "0     Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='1'){
-          char mensaje[50] = "1      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='2'){
-          char mensaje[50] = "2      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='3'){
-          char mensaje[50] = "3      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='4'){
-          char mensaje[50] = "4      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='5'){
-          char mensaje[50] = "5      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='6'){
-          char mensaje[50] = "6      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='7'){
-          char mensaje[50] = "7      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='8'){
-          char mensaje[50] = "8      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(ch =='9'){
-          char mensaje[50] = "9      Numero\n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-      if(arreglo[j]!=' '||arreglo[j]!='\n'){
-    */ 
-
   for(int j = 0;j < cantidadcaracteres;j++){
-    printf("%c",arreglo[j]);
       if(arreglo[j] =='+'){
           char mensaje[50] = "+ \n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] =='-'){
+      else if(arreglo[j] =='-'){
           char mensaje[50] = "- \n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] =='%'){
+      else if(arreglo[j] =='%'){
           char mensaje[50] = "%\n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] =='/'){
+      else if(arreglo[j] =='/'){
           char mensaje[50] = "/\n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] =='*'){
+      else if(arreglo[j] =='*'){
           char mensaje[50] = "*\n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] =='('){
+      else if(arreglo[j] =='('){
           char mensaje[50] = "( \n";
           fprintf(archivosalida,"%s",mensaje);
       }
-      if(arreglo[j] ==')'){
+      else if(arreglo[j] ==')'){
           char mensaje[50] = ") \n";
           fprintf(archivosalida,"%s",mensaje);
+      }else if(arreglo[j] =='^'){
+           char mensaje[50] = "^ \n";
+           fprintf(archivosalida,"%s",mensaje);
+      }else if(arreglo[j] == 'l' && arreglo[j+1] == 'o' && arreglo[j+2] == 'g' && arreglo[j+3] == 'd' && arreglo[j+4] == 'e' && arreglo[j+5] == 'c'){
+           char mensaje[50] = "logaritmo decimal \n";
+           fprintf(archivosalida,"%s",mensaje); 
+      }
+      else if((esnumero(arreglo,j) == 1)){
+
+            do{
+              j = j+1;
+            }while((esnumero(arreglo,j) == 1));
+        
+            if((revisarSiguientes(arreglo,j))==1){
+
+            do{
+              j = j+1;
+            }while((esnumero(arreglo,j) == 1));
+                char mensaje[50] = "Decimal \n";
+                fprintf(archivosalida,"%s",mensaje);
+            }
+            else if((revisarSiguientes(arreglo,j))==2){
+
+            do{
+              j = j+1;
+            }while((esnumero(arreglo,j) == 1));
+                char mensaje[50] = "Exponencial \n";
+                fprintf(archivosalida,"%s",mensaje);
+            }else{
+
+                char mensaje[50] = "Entero \n";
+                fprintf(archivosalida,"%s",mensaje);
+
+                if(arreglo[j] =='+'){
+                    char mensaje[50] = "+ \n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='-'){
+                    char mensaje[50] = "- \n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='%'){
+                    char mensaje[50] = "%\n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='/'){
+                    char mensaje[50] = "/\n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='*'){
+                    char mensaje[50] = "*\n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='^'){
+                    char mensaje[50] = "^ \n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] =='('){
+                    char mensaje[50] = "( \n";
+                    fprintf(archivosalida,"%s",mensaje);
+                }
+                else if(arreglo[j] ==')'){
+                    char mensaje[50] = ") \n";
+                    fprintf(archivosalida,"%s",mensaje);
+ 
+                }
+            }
+
       }
 
-      if(arreglo[j] =='^'){
-          char mensaje[50] = "^ \n";
-          fprintf(archivosalida,"%s",mensaje);
-      }
-
-  } 
-
-
-
-
+    }  
   /* cerrando los archivos */
 
   fclose(archivoentrada);

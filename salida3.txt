@@ -1,0 +1,8 @@
+logaritmo decimal 
+( 
+Entero 
+- 
+Entero 
+) 
+^ 
+Decimal 
